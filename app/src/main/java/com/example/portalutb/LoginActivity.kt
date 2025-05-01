@@ -1,5 +1,7 @@
+// Package tempat file berada
 package com.example.portalutb
 
+// Import library yang diperlukan
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class LoginActivity : AppCompatActivity() {
 
+    // Deklarasi variabel untuk elemen UI
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
@@ -21,59 +24,63 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_login) // Mengatur layout yang digunakan
 
-        var isPasswordVisible = false
+        var isPasswordVisible = false // Status awal password tidak terlihat
 
-        // Inilisasi UI
+        // Inisialisasi elemen UI dari layout
         etUsername = findViewById(R.id.et_username)
         etPassword = findViewById(R.id.et_password)
         btnLogin = findViewById(R.id.btn_login)
         tvRegister = findViewById(R.id.tv_register)
         ivToggle = findViewById(R.id.iv_toggle)
 
-        // Set click listener untuk button login
+        // Ketika tombol login ditekan
         btnLogin.setOnClickListener {
-            val username = etUsername.text.toString()
-            val password = etPassword.text.toString()
+            val username = etUsername.text.toString() // Ambil teks dari input username
+            val password = etPassword.text.toString() // Ambil teks dari input password
 
-            // Validasi Login
+            // Validasi: pastikan kedua kolom diisi
             if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Harap isi semua kolomnya", Toast.LENGTH_SHORT).show()
             } else {
-                // Masuk jika sudah memasukkan username dan password
+                // Jika valid, tampilkan toast dan pindah ke halaman NewsPortalActivity
                 Toast.makeText(this, "Berhasil masuk", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, NewsPortalActivity::class.java)
                 startActivity(intent)
             }
         }
 
-        // Set click listener untuk button register
+        // Ketika teks "Register" ditekan
         tvRegister.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java) // Intent ke halaman register
             startActivity(intent)
         }
 
-        // Set click listener untuk toggle password visibility
+        // Ketika ikon toggle password ditekan
         ivToggle.setOnClickListener {
-            isPasswordVisible = !isPasswordVisible
+            isPasswordVisible = !isPasswordVisible // Toggle status visibility password
 
+            // Simpan font dan ukuran teks saat ini (karena akan berubah setelah inputType diubah)
             val currentTypeface = etPassword.typeface
             val currentTextSize = etPassword.textSize
 
             if (isPasswordVisible) {
+                // Tampilkan password sebagai teks biasa
                 etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                ivToggle.setImageResource(R.drawable.visibility_off_24px)
+                ivToggle.setImageResource(R.drawable.visibility_off_24px) // Ganti ikon ke 'mata tertutup'
             } else {
+                // Sembunyikan password (dalam bentuk bulatan)
                 etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                ivToggle.setImageResource(R.drawable.visibility_24px)
+                ivToggle.setImageResource(R.drawable.visibility_24px) // Ganti ikon ke 'mata terbuka'
             }
 
-            // Kembalikan font dan ukuran teks setelah inputType berubah
+            // Kembalikan font dan ukuran teks agar tetap konsisten setelah perubahan inputType
             etPassword.typeface = currentTypeface
             etPassword.setTextSize(TypedValue.COMPLEX_UNIT_PX, currentTextSize)
-            etPassword.setSelection(etPassword.text.length)
 
+            // Letakkan kursor di akhir teks
+            etPassword.setSelection(etPassword.text.length)
         }
     }
 }

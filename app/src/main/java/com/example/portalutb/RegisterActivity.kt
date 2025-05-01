@@ -1,5 +1,7 @@
+// Package tempat file berada
 package com.example.portalutb
 
+// Import library yang diperlukan
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -12,10 +14,12 @@ import androidx.appcompat.app.AppCompatActivity
 
 class RegisterActivity : AppCompatActivity() {
 
+    // Companion object untuk log debugging
     companion object {
         private const val TAG = "RegisterActivity"
     }
 
+    // Deklarasi komponen UI
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var etConfirmPassword: EditText
@@ -25,11 +29,12 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        setContentView(R.layout.activity_register) // Menghubungkan ke layout XML
 
+        // Variabel kontrol untuk melihat status visibilitas password
         var isPasswordVisible = false
 
-        // Initialize UI components
+        // Inisialisasi komponen UI dengan ID dari layout
         etUsername = findViewById(R.id.et_username)
         etPassword = findViewById(R.id.et_password)
         etConfirmPassword = findViewById(R.id.et_confirm_password)
@@ -37,48 +42,53 @@ class RegisterActivity : AppCompatActivity() {
         btnRegister = findViewById(R.id.btn_register)
         ivProfile = findViewById(R.id.iv_profile)
 
-        // Set click listener for register button
+        // Listener untuk tombol "Daftar"
         btnRegister.setOnClickListener {
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
             val confirm_password = etConfirmPassword.text.toString()
 
-            // Log the registration attempt
-            Log.d(TAG, "Registration attempt: $username")
+            // Buat log proses registrasi
+            Log.d(TAG, "Percobaan registrasi: $username")
+
+            // Cek password dan konfirmasi password jika tidak sama
             if (password != confirm_password) {
                 Toast.makeText(this, "Password tidak sama", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Simple validation
+            // Validasi input kosong
             if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // Jika semua validasi lolos
             Toast.makeText(this, "Daftar berhasil", Toast.LENGTH_SHORT).show()
-            finish()
+            finish() // Menutup activity dan kembali ke sebelumnya
         }
 
+        // Listener untuk icon toggle visibilitas password
         ivToggle.setOnClickListener {
-            isPasswordVisible = !isPasswordVisible
+            isPasswordVisible = !isPasswordVisible // Ubah status visibilitas
 
             val currentTypeface = etPassword.typeface
             val currentTextSize = etPassword.textSize
 
             if (isPasswordVisible) {
+                // Tampilkan password secara jelas
                 etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                ivToggle.setImageResource(R.drawable.visibility_off_24px)
+                ivToggle.setImageResource(R.drawable.visibility_off_24px) // Gambar mata terbuka
             } else {
+                // Sembunyikan password
                 etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                ivToggle.setImageResource(R.drawable.visibility_24px)
+                ivToggle.setImageResource(R.drawable.visibility_24px) // Gambar mata tertutup
             }
 
-            // Kembalikan font dan ukuran teks setelah inputType berubah
+            // Kembalikan style dan posisi kursor setelah mengubah inputType
             etPassword.typeface = currentTypeface
             etPassword.setTextSize(TypedValue.COMPLEX_UNIT_PX, currentTextSize)
             etPassword.setSelection(etPassword.text.length)
-
         }
     }
 }
