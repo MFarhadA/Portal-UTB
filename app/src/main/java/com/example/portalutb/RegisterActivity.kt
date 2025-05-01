@@ -2,6 +2,7 @@
 package com.example.portalutb
 
 // Import library yang diperlukan
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -63,9 +64,27 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Jika semua validasi lolos
-            Toast.makeText(this, "Daftar berhasil", Toast.LENGTH_SHORT).show()
-            finish() // Menutup activity dan kembali ke sebelumnya
+            // Dialog konfirmasi
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Apakah anda yakin ingin mendaftar?")
+                .setCancelable(false) // Dialog tidak bisa ditutup dengan klik di luar
+                .setPositiveButton("Ya") { dialog, id ->
+                    // Buat dan tampilkan dialog
+                    val alert = builder.create()
+                    alert.show()
+
+                    // Jika semua validasi lolos
+                    Toast.makeText(this, "Daftar berhasil", Toast.LENGTH_SHORT).show()
+                    finish() // Menutup activity dan kembali ke sebelumnya
+                }
+                .setNegativeButton("Tidak") { dialog, id ->
+                    // Aksi jika pengguna memilih "Tidak"
+                    dialog.dismiss() // Tutup dialog
+                }
+
+            // Buat dan tampilkan dialog konfirmasi
+            val alert = builder.create()
+            alert.show()
         }
 
         // Listener untuk icon toggle visibilitas password
