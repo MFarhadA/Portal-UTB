@@ -59,7 +59,7 @@ class NewsPortalActivity : AppCompatActivity() {
             .setCancelable(false) // Dialog tidak bisa ditutup dengan klik di luar
             .setPositiveButton("Ya") { dialog, id ->
                 // Aksi jika pengguna memilih "Ya"
-                super.onBackPressed() // Kembali ke halaman sebelumnya (atau keluar dari aplikasi)
+                super.onBackPressedDispatcher.onBackPressed() // Kembali ke halaman sebelumnya (atau keluar dari aplikasi)
             }
             .setNegativeButton("Tidak") { dialog, id ->
                 // Aksi jika pengguna memilih "Tidak"
