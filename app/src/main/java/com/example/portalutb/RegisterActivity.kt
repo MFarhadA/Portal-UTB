@@ -26,7 +26,6 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var etConfirmPassword: EditText
     private lateinit var ivToggle: ImageView
     private lateinit var btnRegister: Button
-    private lateinit var ivProfile: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +40,6 @@ class RegisterActivity : AppCompatActivity() {
         etConfirmPassword = findViewById(R.id.et_confirm_password)
         ivToggle = findViewById(R.id.iv_toggle)
         btnRegister = findViewById(R.id.btn_register)
-        ivProfile = findViewById(R.id.iv_profile)
 
         // Listener untuk tombol "Daftar"
         btnRegister.setOnClickListener {
@@ -60,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
 
             // Validasi input kosong
             if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Tolong isi semua kolom", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -69,10 +67,6 @@ class RegisterActivity : AppCompatActivity() {
             builder.setMessage("Apakah anda yakin ingin mendaftar?")
                 .setCancelable(false) // Dialog tidak bisa ditutup dengan klik di luar
                 .setPositiveButton("Ya") { dialog, id ->
-                    // Buat dan tampilkan dialog
-                    val alert = builder.create()
-                    alert.show()
-
                     // Jika semua validasi lolos
                     Toast.makeText(this, "Daftar berhasil", Toast.LENGTH_SHORT).show()
                     finish() // Menutup activity dan kembali ke sebelumnya
