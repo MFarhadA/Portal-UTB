@@ -86,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         tvRegister.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java) // Intent ke halaman register
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
@@ -97,10 +97,10 @@ class LoginActivity : AppCompatActivity() {
 
             if (isPasswordVisible) {
                 etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                ivToggle.setImageResource(R.drawable.visibility_off_24px) // Ganti ikon ke 'mata tertutup'
+                ivToggle.setImageResource(R.drawable.visibility_off_24px)
             } else {
                 etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                ivToggle.setImageResource(R.drawable.visibility_24px) // Ganti ikon ke 'mata terbuka'
+                ivToggle.setImageResource(R.drawable.visibility_24px)
             }
 
             etPassword.typeface = currentTypeface
@@ -173,9 +173,8 @@ class RegisterActivity : AppCompatActivity() {
             builder.setMessage("Apakah anda yakin ingin mendaftar?")
                 .setCancelable(false)
                 .setPositiveButton("Ya") { dialog, id ->
-                    // Jika semua validasi lolos
                     Toast.makeText(this, "Daftar berhasil", Toast.LENGTH_SHORT).show()
-                    finish() // Menutup activity dan kembali ke sebelumnya
+                    finish() 
                 }
                 .setNegativeButton("Tidak") { dialog, id ->
                     dialog.dismiss()
@@ -192,10 +191,10 @@ class RegisterActivity : AppCompatActivity() {
 
             if (isPasswordVisible) {
                 etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                ivToggle.setImageResource(R.drawable.visibility_off_24px) // Ganti ikon ke 'mata tertutup'
+                ivToggle.setImageResource(R.drawable.visibility_off_24px)
             } else {
                 etPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                ivToggle.setImageResource(R.drawable.visibility_24px) // Ganti ikon ke 'mata terbuka'
+                ivToggle.setImageResource(R.drawable.visibility_24px)
             }
 
             etPassword.typeface = currentTypeface
@@ -246,7 +245,7 @@ class NewsAdapter(private val listBerita: List<NewsItem>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeritaViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.news_item, parent, false) // Inflate layout `news_item.xml`
+            .inflate(R.layout.news_item, parent, false)
         return BeritaViewHolder(view)
     }
 
