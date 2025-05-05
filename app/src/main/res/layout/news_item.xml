@@ -21,7 +21,7 @@
             android:src="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/tvJudul"
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Judul Berita"
@@ -31,7 +31,7 @@
             android:layout_marginTop="8dp" />
 
         <TextView
-            android:id="@+id/tvDeskripsi"
+            android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Deskripsi singkat berita..."

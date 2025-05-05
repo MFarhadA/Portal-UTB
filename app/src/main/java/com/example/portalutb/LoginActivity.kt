@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var ivToggle: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState) // Memanggil fungsi onCreate dari kelas induk
         setContentView(R.layout.activity_login) // Mengatur layout yang digunakan
 
         var isPasswordVisible = false // Status awal password tidak terlihat
@@ -37,24 +37,27 @@ class LoginActivity : AppCompatActivity() {
 
         // Ketika tombol login ditekan
         btnLogin.setOnClickListener {
-            val username = etUsername.text.toString() // Ambil teks dari input username
-            val password = etPassword.text.toString() // Ambil teks dari input password
+            val username = etUsername.text.toString() // Ambil input username dari EditText
+            val password = etPassword.text.toString() // Ambil input password dari EditText
 
-            // Validasi: pastikan kedua kolom diisi
-            if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Harap isi semua kolomnya", Toast.LENGTH_SHORT).show()
+            if (username.isEmpty() || password.isEmpty()) { // Jika username atau password kosong
+                Toast.makeText(this, "Harap isi semua kolomnya", Toast.LENGTH_SHORT).show() // Tampilkan toast
             } else {
-                // Jika valid, tampilkan toast dan pindah ke halaman NewsPortalActivity
-                Toast.makeText(this, "Berhasil masuk", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, NewsPortalActivity::class.java)
-                startActivity(intent)
+                val success = UserStore.login(username, password) // Panggil fungsi login
+                if (success) { // Jika login berhasil
+                    Toast.makeText(this, "Berhasil masuk", Toast.LENGTH_SHORT).show() // Tampilkan toast
+                    val intent = Intent(this, NewsPortalActivity::class.java) // Intent ke halaman berita
+                    startActivity(intent) // Mulai halaman berita
+                } else { // Jika login gagal
+                    Toast.makeText(this, "Username atau password salah", Toast.LENGTH_SHORT).show() // Tampilkan toast
+                }
             }
         }
 
-        // Ketika teks "Register" ditekan
+        // Ketika teks "Belum punya akun? Daftar disini" ditekan
         tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java) // Intent ke halaman register
-            startActivity(intent)
+            startActivity(intent) // Mulai halaman register
         }
 
         // Ketika ikon toggle password ditekan
@@ -76,8 +79,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             // Kembalikan font dan ukuran teks agar tetap konsisten setelah perubahan inputType
-            etPassword.typeface = currentTypeface
-            etPassword.setTextSize(TypedValue.COMPLEX_UNIT_PX, currentTextSize)
+            etPassword.typeface = currentTypeface // Set font
+            etPassword.setTextSize(TypedValue.COMPLEX_UNIT_PX, currentTextSize) // Set ukuran
 
             // Letakkan kursor di akhir teks
             etPassword.setSelection(etPassword.text.length)

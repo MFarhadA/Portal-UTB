@@ -11,37 +11,39 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 // Adapter untuk RecyclerView yang menampilkan daftar berita
-class NewsAdapter(private val listBerita: List<NewsItem>) :
+class NewsAdapter(private val listNews: List<NewsItem>) :
+
+    // Implementasi RecyclerView.Adapter
     RecyclerView.Adapter<NewsAdapter.BeritaViewHolder>() {
 
     // ViewHolder untuk menyimpan dan mengatur tampilan item berita
     inner class BeritaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgThumbnail: ImageView = itemView.findViewById(R.id.imgThumbnail) // Gambar thumbnail
-        val tvJudul: TextView = itemView.findViewById(R.id.tvJudul)             // Judul berita
-        val tvDeskripsi: TextView = itemView.findViewById(R.id.tvDeskripsi)     // Deskripsi berita
+        val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)             // Judul berita
+        val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)     // Deskripsi berita
     }
 
     // Dipanggil saat ViewHolder dibuat (inflate layout item berita)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeritaViewHolder {
-        val view = LayoutInflater.from(parent.context)
+        val view = LayoutInflater.from(parent.context) // Inisialisasi LayoutInflater
             .inflate(R.layout.news_item, parent, false) // Inflate layout `news_item.xml`
-        return BeritaViewHolder(view)
+        return BeritaViewHolder(view) // Mengembalikan ViewHolder
     }
 
     // Menghubungkan data berita ke tampilan (bind data ke setiap item)
     override fun onBindViewHolder(holder: BeritaViewHolder, position: Int) {
-        val berita = listBerita[position]
+        val news = listNews[position]
 
         // Memuat gambar ke ImageView menggunakan Glide
         Glide.with(holder.itemView.context)
-            .load(berita.imageURL) // URL gambar dari objek NewsItem
+            .load(news.imageURL) // URL gambar dari objek NewsItem
             .into(holder.imgThumbnail) // Tampilkan ke imgThumbnail
 
         // Set teks judul dan deskripsi
-        holder.tvJudul.text = berita.title
-        holder.tvDeskripsi.text = berita.description
+        holder.tvTitle.text = news.title // Judul berita
+        holder.tvDescription.text = news.description // Deskripsi berita
     }
 
     // Mengembalikan jumlah item dalam daftar berita
-    override fun getItemCount(): Int = listBerita.size
+    override fun getItemCount(): Int = listNews.size // Mengembalikan panjang list berita
 }

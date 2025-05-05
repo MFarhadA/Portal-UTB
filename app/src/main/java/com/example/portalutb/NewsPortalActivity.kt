@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.app.AlertDialog // Untuk menampilkan dialog konfirmasi
+import android.app.AlertDialog
 
 class NewsPortalActivity : AppCompatActivity() {
 
@@ -54,8 +54,8 @@ class NewsPortalActivity : AppCompatActivity() {
 
     // Menangani tombol back untuk menampilkan dialog konfirmasi logout
     override fun onBackPressed() {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage("Apakah anda yakin ingin logout?")
+        val builder = AlertDialog.Builder(this) // Membuat builder dialog
+        builder.setMessage("Apakah anda yakin ingin logout?") // Pesan dialog
             .setCancelable(false) // Dialog tidak bisa ditutup dengan klik di luar
             .setPositiveButton("Ya") { dialog, id ->
                 // Aksi jika pengguna memilih "Ya"
