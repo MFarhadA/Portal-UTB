@@ -39,7 +39,31 @@ class SplashScreenActivity : AppCompatActivity() {
 }
 ```
 
-### 2. Login Activity 🔐
+### 2. User Item 🗃️
+
+Data class representing a user item in the application.
+
+```kotlin
+package com.example.portalutb
+
+data class User(val username: String, val password: String)
+
+object UserStore {
+    private val userList = mutableListOf<User>()
+
+    fun register(username: String, password: String): Boolean {
+        if (userList.any { it.username == username }) return false
+        userList.add(User(username, password))
+        return true
+    }
+
+    fun login(username: String, password: String): Boolean {
+        return userList.any { it.username == username && it.password == password }
+    }
+}
+```
+
+### 3. Login Activity 🔐
 
 Activity to display login form after splash screen finishes.
 
@@ -83,9 +107,14 @@ class LoginActivity : AppCompatActivity() {
             if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Harap isi semua kolomnya", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Berhasil masuk", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, NewsPortalActivity::class.java)
-                startActivity(intent)
+                val success = UserStore.login(username, password)
+                if (success) {
+                    Toast.makeText(this, "Berhasil masuk", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, NewsPortalActivity::class.java)
+                    startActivity(intent) // Mulai halaman berita
+                } else {
+                    Toast.makeText(this, "Username atau password salah", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -115,7 +144,7 @@ class LoginActivity : AppCompatActivity() {
 }
 ```
 
-### 3. Register Activity 📝
+### 4. Register Activity 📝
 
 Activity to display registration form.
 
@@ -177,8 +206,13 @@ class RegisterActivity : AppCompatActivity() {
             builder.setMessage("Apakah anda yakin ingin mendaftar?")
                 .setCancelable(false)
                 .setPositiveButton("Ya") { dialog, id ->
-                    Toast.makeText(this, "Daftar berhasil", Toast.LENGTH_SHORT).show()
-                    finish() 
+                    val success = UserStore.register(username, password)
+                    if (success) {
+                        Toast.makeText(this, "Daftar berhasil", Toast.LENGTH_SHORT).show()
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Username sudah terdaftar", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 .setNegativeButton("Tidak") { dialog, id ->
                     dialog.dismiss()
@@ -209,7 +243,7 @@ class RegisterActivity : AppCompatActivity() {
 }
 ```
 
-### 4. News Item 📰
+### 5. News Item 📰
 
 Data class representing a news item in the application.
 
@@ -223,7 +257,7 @@ data class NewsItem(
 )
 ```
 
-### 5. News Adapter 🔄
+### 6. News Adapter 🔄
 
 Adapter for displaying news items.
 
@@ -267,7 +301,7 @@ class NewsAdapter(private val listBerita: List<NewsItem>) :
 }
 ```
 
-### 6. News Portal Activity 📱
+### 7. News Portal Activity 📱
 
 Activity to display news list in the news portal page.
 
