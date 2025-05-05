@@ -4,6 +4,8 @@
 
 # Portal UTB 📱
 
+![ss](https://github.com/user-attachments/assets/ed247a08-890d-4901-a2fb-125d2e85a203)
+
 A simple news portal Android application with splash screen, authentication, and news viewing features.
 
 ## Components 🧩
